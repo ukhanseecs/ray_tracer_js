@@ -123,7 +123,6 @@ function Loop(){
             let ray = compute_ray(i, j);
             let t = find_intersection(ray, sphere);
             if (t > 0){
-                hitCount++;
                 let hitpoint = find_hitpoint(ray, t);
                 let normal = find_normal(hitpoint, sphere_center);
                 let color = computeLighting(hitpoint, light_pos, normal, sphere, ray);
