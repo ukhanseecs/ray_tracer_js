@@ -2,8 +2,7 @@ let msPrev = window.performance.now();
 const fps = 60;
 const msPerFrame = 1000 / fps;
 
-// Change these values
-let viewport_width = 2; // reduced from 800
+let viewport_width = 2; 
 let aspect_ratio = 16/9;
 let viewport_height = viewport_width / aspect_ratio;
 let focal_length = 1;
@@ -14,8 +13,6 @@ let light_pos = new Vector3D(5,5,5);
 const canvas_width = canvas.width;
 const canvas_height = canvas.height;
 
-// Add this after canvas dimensions are set
-console.log('Canvas dimensions:', canvas_width, canvas_height);
 
 class Sphere{
     constructor(center, radius, color){
@@ -33,18 +30,15 @@ class Ray{
     }
 }
 
-// Modify sphere parameters
-let sphere_center = new Vector3D(0, 0, -2); // moved from -5 to -2
-let sphere_radius = 1; // reduced from 4 to 1
-let sphere_color = new Vector3D(255, 0, 0); // keep red color
+let sphere_center = new Vector3D(0, 0, -2); 
+let sphere_radius = 1; 
+let sphere_color = new Vector3D(255, 0, 0); 
 
-// Create a background color reference
-let bg_color = {r: 0, g: 0, b: 0}; // Default black background
+let bg_color = {r: 0, g: 0, b: 0}; 
 
 let ray_origin = new Vector3D(0, 0, 0);
 let t = 2;
 
-// Create a reference object for sphere radius to pass to controls
 const sphereRadiusRef = { value: sphere_radius };
 
 function compute_ray(i, j){
@@ -108,7 +102,6 @@ function computeLighting(hitpoint, lightPos, normal, sphere, ray){
     lightDir = lightDir.unit_vec3d();
     let lightIntensity = Vector3D.dot_vec3d(lightDir, normal);
     lightIntensity = Math.max(0, lightIntensity);
-    // Change this line - don't use scalar_multiply_vec3d for colors
     let finalColor = new Vector3D(
         sphere.color.x * lightIntensity,
         sphere.color.y * lightIntensity,
@@ -120,12 +113,9 @@ function computeLighting(hitpoint, lightPos, normal, sphere, ray){
 
 
 function Loop(){
-    // Use the reference value for sphere radius
     sphere_radius = sphereRadiusRef.value;
     let sphere = new Sphere(sphere_center, sphere_radius, sphere_color);
-    let hitCount = 0;
     
-    // Clear the canvas before redrawing
     ctx.clearRect(0, 0, canvas_width, canvas_height);
     
     for (let i=0; i < canvas_width; i++){
@@ -140,14 +130,13 @@ function Loop(){
                 ctx.fillStyle = color;
                 ctx.fillRect(i, j, 1, 1);
             } else {
-                // Use the background color
                 ctx.fillStyle = `rgb(${bg_color.r}, ${bg_color.g}, ${bg_color.b})`;
                 ctx.fillRect(i, j, 1, 1);
             }
         }
     }
-    console.log('Ray hits:', hitCount);
 }
+
 
 // Initialize controls and render the first scene when the page loads
 window.addEventListener('load', () => {
