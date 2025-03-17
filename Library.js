@@ -635,20 +635,24 @@ class Vector3D {
         return new Vector3D(this.x / mag, this.y / mag, this.z / mag)
     }
 
-    dot_vec3d(a, b) {
+    static dot_vec3d(a, b) {
         return a.x * b.x + a.y * b.y + a.z * b.z;
     }
 
-    subtract_vec3d(a, b) {
+    static subtract_vec3d(a, b) {
         return new Vector3D(a.x - b.x, a.y - b.y, a.z - b.z);
     }
 
-    add_vec3d(a, b) {
+    static add_vec3d(a, b) {
         return new Vector3D(a.x + b.x, a.y + b.y, a.z + b.z);
     }
 
-    multiply_vec3d(a, b) {
+    static multiply_vec3d(a, b) {
         return new Vector3D(a.x * b, a.y * b, a.z * b);
+    }
+
+    static scalar_multiply_vec3d(a, b) { 
+        return new Vector3D(a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z, a.x * b.y - a.y * b.x);
     }
 
 }
