@@ -624,6 +624,13 @@ class Vector3D {
         this.y = y;
         this.z = z;
     }
+
+    normalize_vec3d() {
+        const mag = Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
+        this.x /= mag;
+        this.y /= mag;
+        this.z /= mag;
+    }
 }
 
 
