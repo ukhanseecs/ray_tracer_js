@@ -642,6 +642,15 @@ class Vector3D {
     subtract_vec3d(a, b) {
         return new Vector3D(a.x - b.x, a.y - b.y, a.z - b.z);
     }
+
+    add_vec3d(a, b) {
+        return new Vector3D(a.x + b.x, a.y + b.y, a.z + b.z);
+    }
+
+    multiply_vec3d(a, b) {
+        return new Vector3D(a.x * b, a.y * b, a.z * b);
+    }
+
 }
 
 

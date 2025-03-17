@@ -68,10 +68,7 @@ function find_intersection(ray, sphere){
     }
 }
 
-
-
-function Loop(){
-
+function compute_ray(){
     for (let i=0; i < canvas_width; i++){
         for (let j=0; j< canvas.height; j++){
             let x = (2* i/canvas_width) -1;
@@ -84,9 +81,33 @@ function Loop(){
 
             let ray_direction = new Vector3D(pixel, -focal_length)
             ray_direction = ray_direction.normalize_vec3d();
-    
+
+            return new Ray(camera_pos, ray_direction, t);
         }
     }
+}
+
+function find_normal(ray, sphere){
+    let P = new Vector3D(0,0,0)
+    let distance = find_intersection(ray, sphere);
+    if (distance > 0){
+        P = add_vec3d(ray.origin, multiply_vec3d(ray.direction, distance));
+    }
+    else {
+        P = new Vector3D(0,0,0);
+    }
+    
+    let normal_vector = new Vector3D(0,0,0)
+    normal_vector = subtract_vec3d(P, sphere_center);
+    normal_vector = normal_vector.unit_vec3d();
+    return normal_vector;
+}
+
+
+
+function Loop(){
+
+
     //=======================================================================================     
 }  
     
