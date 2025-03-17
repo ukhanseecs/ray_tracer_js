@@ -2,9 +2,12 @@
 
 A simple JavaScript-based ray tracer that renders a 3D sphere with lighting effects in real-time.
 
+![Ray Tracer Demo](./demo.png)
+
 ## Usage
 
-Open `index.html` in a web browser to start the ray tracer.
+Open `index.html` in a web browser to start the ray tracer
+or visit the live demo at <https://ukhanseecs.github.io/ray_tracer_js/>
 
 ## Features
 
@@ -12,6 +15,5 @@ Open `index.html` in a web browser to start the ray tracer.
 - Adjustable colors for sphere and background
 - Real-time rendering using HTML5 Canvas
 
-Visit the live demo at <https://ukhanseecs.github.io/ray_tracer_js/>
 
 Feel free to contribute!
