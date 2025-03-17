@@ -8,7 +8,7 @@ let viewport_height = viewport_width / aspect_ratio;
 let focal_length = 1;
 
 let camera_pos = new Vector3D(0, 0, 0);
-let light_pos = new Vector3D(5,5,5);
+let light_pos = new Vector3D(5,-2,4);
 
 const canvas_width = canvas.width;
 const canvas_height = canvas.height;
@@ -31,7 +31,7 @@ class Ray{
 }
 
 let sphere_center = new Vector3D(0, 0, -2); 
-let sphere_radius = 1; 
+let sphere_radius = 0.7; 
 let sphere_color = new Vector3D(255, 0, 0); 
 
 let bg_color = {r: 0, g: 0, b: 0}; 

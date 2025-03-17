@@ -22,6 +22,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             max-height: 90vh;
             overflow-y: auto;
+            width: 240px;
         }
         .control-group {
             margin-bottom: 10px;
@@ -42,6 +43,49 @@
             border-radius: 4px;
             cursor: pointer;
         }
+        /* Dropdown styles */
+        .dropdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #e7e7e7;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 8px;
+            user-select: none;
+        }
+        .dropdown-header h4 {
+            margin: 0;
+        }
+        .dropdown-icon {
+            transition: transform 0.3s;
+        }
+        .dropdown-icon.active {
+            transform: rotate(180deg);
+        }
+        .dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            padding: 0 10px;
+        }
+        .dropdown-content.active {
+            max-height: 500px;
+            transition: max-height 0.5s ease-in;
+        }
+        /* Input container for slider + text input */
+        .input-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        input[type="number"] {
+            width: 50px;
+            padding: 3px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
     </style>
     
 </head>
@@ -51,63 +95,137 @@
     <div class="control-panel">
         <h3>Ray Tracer Controls</h3>
         
-        <div class="control-group">
-            <label>Light Position X: <span id="lightXValue">5</span></label>
-            <input type="range" id="lightX" min="-10" max="10" value="5" step="0.5">
-        </div>
-        <div class="control-group">
-            <label>Light Position Y: <span id="lightYValue">5</span></label>
-            <input type="range" id="lightY" min="-10" max="10" value="5" step="0.5">
-        </div>
-        <div class="control-group">
-            <label>Light Position Z: <span id="lightZValue">5</span></label>
-            <input type="range" id="lightZ" min="-10" max="10" value="5" step="0.5">
-        </div>
-        
-        <div class="control-group">
-            <label>Sphere Position X: <span id="sphereXValue">0</span></label>
-            <input type="range" id="sphereX" min="-10" max="10" value="0" step="0.5">
-        </div>
-        <div class="control-group">
-            <label>Sphere Position Y: <span id="sphereYValue">0</span></label>
-            <input type="range" id="sphereY" min="-10" max="10" value="0" step="0.5">
-        </div>
-        <div class="control-group">
-            <label>Sphere Position Z: <span id="sphereZValue">-2</span></label>
-            <input type="range" id="sphereZ" min="-10" max="10" value="-2" step="0.5">
-        </div>
-        
-        <div class="control-group">
-            <label>Sphere Radius: <span id="sphereRadiusValue">1</span></label>
-            <input type="range" id="sphereRadius" min="0.1" max="5" value="1" step="0.1">
-        </div>
-        
-        <h4>Sphere Color</h4>
-        <div class="control-group">
-            <label>Red: <span id="sphereRedValue">255</span></label>
-            <input type="range" id="sphereRed" min="0" max="255" value="255" step="1">
-        </div>
-        <div class="control-group">
-            <label>Green: <span id="sphereGreenValue">0</span></label>
-            <input type="range" id="sphereGreen" min="0" max="255" value="0" step="1">
-        </div>
-        <div class="control-group">
-            <label>Blue: <span id="sphereBlueValue">0</span></label>
-            <input type="range" id="sphereBlue" min="0" max="255" value="0" step="1">
+        <!-- Light Controls Dropdown -->
+        <div class="dropdown-section">
+            <div class="dropdown-header">
+                <h4>Light Position</h4>
+                <span class="dropdown-icon">▼</span>
+            </div>
+            <div class="dropdown-content">
+                <div class="control-group">
+                    <label>Light Position X: <span id="lightXValue">5</span></label>
+                    <div class="input-container">
+                        <input type="range" id="lightX" min="-10" max="10" value="5" step="0.5">
+                        <input type="number" id="lightXText" value="5" step="0.5" min="-10" max="10">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label>Light Position Y: <span id="lightYValue">5</span></label>
+                    <div class="input-container">
+                        <input type="range" id="lightY" min="-10" max="10" value="5" step="0.5">
+                        <input type="number" id="lightYText" value="5" step="0.5" min="-10" max="10">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label>Light Position Z: <span id="lightZValue">5</span></label>
+                    <div class="input-container">
+                        <input type="range" id="lightZ" min="-10" max="10" value="5" step="0.5">
+                        <input type="number" id="lightZText" value="5" step="0.5" min="-10" max="10">
+                    </div>
+                </div>
+            </div>
         </div>
         
-        <h4>Background Color</h4>
-        <div class="control-group">
-            <label>Red: <span id="bgRedValue">0</span></label>
-            <input type="range" id="bgRed" min="0" max="255" value="0" step="1">
+        <!-- Renamed: Sphere Position -> Sphere Properties -->
+        <div class="dropdown-section">
+            <div class="dropdown-header">
+                <h4>Sphere Properties</h4>
+                <span class="dropdown-icon">▼</span>
+            </div>
+            <div class="dropdown-content">
+                <div class="control-group">
+                    <label>Position X: <span id="sphereXValue">0</span></label>
+                    <div class="input-container">
+                        <input type="range" id="sphereX" min="-10" max="10" value="0" step="0.5">
+                        <input type="number" id="sphereXText" value="0" step="0.5" min="-10" max="10">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label>Position Y: <span id="sphereYValue">0</span></label>
+                    <div class="input-container">
+                        <input type="range" id="sphereY" min="-10" max="10" value="0" step="0.5">
+                        <input type="number" id="sphereYText" value="0" step="0.5" min="-10" max="10">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label>Position Z: <span id="sphereZValue">-2</span></label>
+                    <div class="input-container">
+                        <input type="range" id="sphereZ" min="-10" max="10" value="-2" step="0.5">
+                        <input type="number" id="sphereZText" value="-2" step="0.5" min="-10" max="10">
+                    </div>
+                </div>
+                <!-- Moved radius control here -->
+                <div class="control-group">
+                    <label>Radius: <span id="sphereRadiusValue">1</span></label>
+                    <div class="input-container">
+                        <input type="range" id="sphereRadius" min="0.1" max="5" value="1" step="0.1">
+                        <input type="number" id="sphereRadiusText" value="1" step="0.1" min="0.1" max="5">
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="control-group">
-            <label>Green: <span id="bgGreenValue">0</span></label>
-            <input type="range" id="bgGreen" min="0" max="255" value="0" step="1">
+        
+        <!-- Renamed: Sphere Properties -> Sphere Color -->
+        <div class="dropdown-section">
+            <div class="dropdown-header">
+                <h4>Sphere Color</h4>
+                <span class="dropdown-icon">▼</span>
+            </div>
+            <div class="dropdown-content">
+                <!-- Removed redundant h5 heading -->
+                <div class="control-group">
+                    <label>Red: <span id="sphereRedValue">255</span></label>
+                    <div class="input-container">
+                        <input type="range" id="sphereRed" min="0" max="255" value="255" step="1">
+                        <input type="number" id="sphereRedText" value="255" step="1" min="0" max="255">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label>Green: <span id="sphereGreenValue">0</span></label>
+                    <div class="input-container">
+                        <input type="range" id="sphereGreen" min="0" max="255" value="0" step="1">
+                        <input type="number" id="sphereGreenText" value="0" step="1" min="0" max="255">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label>Blue: <span id="sphereBlueValue">0</span></label>
+                    <div class="input-container">
+                        <input type="range" id="sphereBlue" min="0" max="255" value="0" step="1">
+                        <input type="number" id="sphereBlueText" value="0" step="1" min="0" max="255">
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="control-group">
-            <label>Blue: <span id="bgBlueValue">0</span></label>
-            <input type="range" id="bgBlue" min="0" max="255" value="0" step="1">
+        
+        <!-- Background Color Dropdown -->
+        <div class="dropdown-section">
+            <div class="dropdown-header">
+                <h4>Background Color</h4>
+                <span class="dropdown-icon">▼</span>
+            </div>
+            <div class="dropdown-content">
+                <div class="control-group">
+                    <label>Red: <span id="bgRedValue">0</span></label>
+                    <div class="input-container">
+                        <input type="range" id="bgRed" min="0" max="255" value="0" step="1">
+                        <input type="number" id="bgRedText" value="0" step="1" min="0" max="255">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label>Green: <span id="bgGreenValue">0</span></label>
+                    <div class="input-container">
+                        <input type="range" id="bgGreen" min="0" max="255" value="0" step="1">
+                        <input type="number" id="bgGreenText" value="0" step="1" min="0" max="255">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label>Blue: <span id="bgBlueValue">0</span></label>
+                    <div class="input-container">
+                        <input type="range" id="bgBlue" min="0" max="255" value="0" step="1">
+                        <input type="number" id="bgBlueText" value="0" step="1" min="0" max="255">
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -115,6 +233,75 @@
     <script src="Library.js"></script>
     <script src="controls.js"></script>
     <script src="raytracer.js"></script>
-    
+    <script>
+        // Initialize dropdown functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdowns = document.querySelectorAll('.dropdown-header');
+            
+            // No dropdown open by default (removed the code that opened the first one)
+            
+            dropdowns.forEach(dropdown => {
+                dropdown.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    const icon = this.querySelector('.dropdown-icon');
+                    
+                    // If this dropdown is already open, just close it
+                    if (content.classList.contains('active')) {
+                        content.classList.remove('active');
+                        icon.classList.remove('active');
+                        return;
+                    }
+                    
+                    // Close all dropdowns first
+                    document.querySelectorAll('.dropdown-content').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    document.querySelectorAll('.dropdown-icon').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    // Then open only this dropdown
+                    content.classList.add('active');
+                    icon.classList.add('active');
+                });
+            });
+            
+            // Sync range inputs with text inputs
+            const rangeInputs = document.querySelectorAll('input[type="range"]');
+            rangeInputs.forEach(range => {
+                const id = range.id;
+                const textInput = document.getElementById(id + 'Text');
+                const valueSpan = document.getElementById(id + 'Value');
+                
+                // Update text input when slider changes
+                range.addEventListener('input', function() {
+                    textInput.value = this.value;
+                    valueSpan.textContent = this.value;
+                    
+                    // No need to trigger an additional event here as the slider's input event is already handled
+                });
+                
+                // Update slider and render scene when text input changes (typing)
+                textInput.addEventListener('input', function() {
+                    range.value = this.value;
+                    valueSpan.textContent = this.value;
+                    
+                    // Trigger the input event on the range to ensure rendering happens
+                    const inputEvent = new Event('input', { bubbles: true });
+                    range.dispatchEvent(inputEvent);
+                });
+                
+                // Additional listener for change event (up/down buttons or on blur)
+                textInput.addEventListener('change', function() {
+                    range.value = this.value;
+                    valueSpan.textContent = this.value;
+                    
+                    // Trigger the input event on the range to ensure rendering happens
+                    const inputEvent = new Event('input', { bubbles: true });
+                    range.dispatchEvent(inputEvent);
+                });
+            });
+        });
+    </script>
 </body>
 </html>
