@@ -2,7 +2,7 @@
 
 A simple JavaScript-based ray tracer that renders a 3D sphere with lighting effects in real-time.
 
-![Ray Tracer Demo](./demo.png)
+![Ray Tracer Demo](./image.png)
 
 ## Usage
 
