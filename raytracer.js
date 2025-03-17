@@ -41,6 +41,8 @@ let sphere_color = new Vector3D(255, 0, 0); // keep red color
 let ray_origin = new Vector3D(0, 0, 0);
 let t = 2;
 
+// Create a reference object for sphere radius to pass to controls
+const sphereRadiusRef = { value: sphere_radius };
 
 function compute_ray(i, j){
     let x = (2* i/canvas_width) -1;
@@ -115,8 +117,13 @@ function computeLighting(hitpoint, lightPos, normal, sphere, ray){
 
 
 function Loop(){
+    // Use the reference value for sphere radius
+    sphere_radius = sphereRadiusRef.value;
     let sphere = new Sphere(sphere_center, sphere_radius, sphere_color);
     let hitCount = 0;
+    
+    // Clear the canvas before redrawing
+    ctx.clearRect(0, 0, canvas_width, canvas_height);
     
     for (let i=0; i < canvas_width; i++){
         for (let j=0; j < canvas_height; j++){
@@ -137,5 +144,10 @@ function Loop(){
     }
     console.log('Ray hits:', hitCount);
 }
-    
-Loop();
+
+// Initialize controls and render the first scene when the page loads
+window.addEventListener('load', () => {
+    // Initialize controls with references to variables
+    initControls(Loop, light_pos, sphere_center, sphereRadiusRef);
+    Loop(); // Initial render
+});
