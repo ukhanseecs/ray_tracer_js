@@ -627,9 +627,20 @@ class Vector3D {
 
     normalize_vec3d() {
         const mag = Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
-        this.x /= mag;
-        this.y /= mag;
-        this.z /= mag;
+        return new Vector3D(this.x / mag, this.y / mag, this.z / mag)
+    }
+
+    unit_vec3d() {
+        const mag = Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
+        return new Vector3D(this.x / mag, this.y / mag, this.z / mag)
+    }
+
+    dot_vec3d(a, b) {
+        return a.x * b.x + a.y * b.y + a.z * b.z;
+    }
+
+    subtract_vec3d(a, b) {
+        return new Vector3D(a.x - b.x, a.y - b.y, a.z - b.z);
     }
 }
 
