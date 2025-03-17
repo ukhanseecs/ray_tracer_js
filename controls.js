@@ -1,6 +1,6 @@
 // Controls for ray tracer UI
 
-function initControls(loopFunction, lightPosRef, sphereCenterRef, sphereRadiusRef) {
+function initControls(loopFunction, lightPosRef, sphereCenterRef, sphereRadiusRef, sphereColorRef, bgColorRef) {
     // Light position controls
     const lightX = document.getElementById('lightX');
     const lightY = document.getElementById('lightY');
@@ -52,6 +52,52 @@ function initControls(loopFunction, lightPosRef, sphereCenterRef, sphereRadiusRe
     sphereRadius.addEventListener('input', () => {
         sphereRadiusRef.value = parseFloat(sphereRadius.value);
         document.getElementById('sphereRadiusValue').textContent = sphereRadius.value;
+        loopFunction(); // Auto-render on change
+    });
+    
+    // Sphere color controls
+    const sphereRed = document.getElementById('sphereRed');
+    const sphereGreen = document.getElementById('sphereGreen');
+    const sphereBlue = document.getElementById('sphereBlue');
+    
+    sphereRed.addEventListener('input', () => {
+        sphereColorRef.x = parseInt(sphereRed.value);
+        document.getElementById('sphereRedValue').textContent = sphereRed.value;
+        loopFunction(); // Auto-render on change
+    });
+    
+    sphereGreen.addEventListener('input', () => {
+        sphereColorRef.y = parseInt(sphereGreen.value);
+        document.getElementById('sphereGreenValue').textContent = sphereGreen.value;
+        loopFunction(); // Auto-render on change
+    });
+    
+    sphereBlue.addEventListener('input', () => {
+        sphereColorRef.z = parseInt(sphereBlue.value);
+        document.getElementById('sphereBlueValue').textContent = sphereBlue.value;
+        loopFunction(); // Auto-render on change
+    });
+    
+    // Background color controls
+    const bgRed = document.getElementById('bgRed');
+    const bgGreen = document.getElementById('bgGreen');
+    const bgBlue = document.getElementById('bgBlue');
+    
+    bgRed.addEventListener('input', () => {
+        bgColorRef.r = parseInt(bgRed.value);
+        document.getElementById('bgRedValue').textContent = bgRed.value;
+        loopFunction(); // Auto-render on change
+    });
+    
+    bgGreen.addEventListener('input', () => {
+        bgColorRef.g = parseInt(bgGreen.value);
+        document.getElementById('bgGreenValue').textContent = bgGreen.value;
+        loopFunction(); // Auto-render on change
+    });
+    
+    bgBlue.addEventListener('input', () => {
+        bgColorRef.b = parseInt(bgBlue.value);
+        document.getElementById('bgBlueValue').textContent = bgBlue.value;
         loopFunction(); // Auto-render on change
     });
     

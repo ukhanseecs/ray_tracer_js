@@ -38,6 +38,9 @@ let sphere_center = new Vector3D(0, 0, -2); // moved from -5 to -2
 let sphere_radius = 1; // reduced from 4 to 1
 let sphere_color = new Vector3D(255, 0, 0); // keep red color
 
+// Create a background color reference
+let bg_color = {r: 0, g: 0, b: 0}; // Default black background
+
 let ray_origin = new Vector3D(0, 0, 0);
 let t = 2;
 
@@ -137,7 +140,8 @@ function Loop(){
                 ctx.fillStyle = color;
                 ctx.fillRect(i, j, 1, 1);
             } else {
-                ctx.fillStyle = "black";
+                // Use the background color
+                ctx.fillStyle = `rgb(${bg_color.r}, ${bg_color.g}, ${bg_color.b})`;
                 ctx.fillRect(i, j, 1, 1);
             }
         }
@@ -148,6 +152,15 @@ function Loop(){
 // Initialize controls and render the first scene when the page loads
 window.addEventListener('load', () => {
     // Initialize controls with references to variables
-    initControls(Loop, light_pos, sphere_center, sphereRadiusRef);
+    initControls(Loop, light_pos, sphere_center, sphereRadiusRef, sphere_color, bg_color);
+    
+    // Set initial values for UI
+    document.getElementById('sphereRedValue').textContent = sphere_color.x;
+    document.getElementById('sphereGreenValue').textContent = sphere_color.y;
+    document.getElementById('sphereBlueValue').textContent = sphere_color.z;
+    document.getElementById('bgRedValue').textContent = bg_color.r;
+    document.getElementById('bgGreenValue').textContent = bg_color.g;
+    document.getElementById('bgBlueValue').textContent = bg_color.b;
+    
     Loop(); // Initial render
 });
