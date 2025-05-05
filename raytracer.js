@@ -30,7 +30,7 @@ class Ray{
     }
 }
 
-let sphere_center = new Vector3D(0, 0, -2); 
+let sphere_center = new Vector3D(0, 0, -0.5); 
 let sphere_radius = 0.7; 
 let sphere_color = new Vector3D(255, 0, 0); 
 
@@ -144,17 +144,17 @@ window.addEventListener('load', () => {
 
     // Light position folder
     const lightFolder = gui.addFolder('Light Position');
-    lightFolder.add(light_pos, 'x', -10, 10, 0.5).name('X').onChange(Loop);
-    lightFolder.add(light_pos, 'y', -10, 10, 0.5).name('Y').onChange(Loop);
-    lightFolder.add(light_pos, 'z', -10, 10, 0.5).name('Z').onChange(Loop);
+    lightFolder.add(light_pos, 'x', -10, 10, 0.1).name('X').onChange(Loop);
+    lightFolder.add(light_pos, 'y', -10, 10, 0.1).name('Y').onChange(Loop);
+    lightFolder.add(light_pos, 'z', -10, 10, 0.1).name('Z').onChange(Loop);
     lightFolder.open();
 
     // Sphere properties folder
     const sphereFolder = gui.addFolder('Sphere Properties');
-    sphereFolder.add(sphere_center, 'x', -10, 10, 0.5).name('X').onChange(Loop);
-    sphereFolder.add(sphere_center, 'y', -10, 10, 0.5).name('Y').onChange(Loop);
-    sphereFolder.add(sphere_center, 'z', -10, 10, 0.5).name('Z').onChange(Loop);
-    sphereFolder.add(sphereRadiusRef, 'value', 0.1, 5, 0.1).name('Radius').onChange(Loop);
+    sphereFolder.add(sphere_center, 'x', -10, 10, 0.1).name('X').onChange(Loop);
+    sphereFolder.add(sphere_center, 'y', -10, 10, 0.1).name('Y').onChange(Loop);
+    sphereFolder.add(sphere_center, 'z', -10, 10, 0.1).name('Z').onChange(Loop);
+    sphereFolder.add(sphereRadiusRef, 'value', 0.1, 5, 0.05).name('Radius').onChange(Loop);
     sphereFolder.open();
 
     // Sphere color folder
