@@ -67,73 +67,71 @@ function createDropdownSection(section) {
     `;
 }
 
-// Initialize UI
-document.addEventListener('DOMContentLoaded', function() {
-    const controlsContainer = document.getElementById('controls-container');
+// Comment out the dynamic UI generation to avoid conflicts with dat.GUI
+// document.addEventListener('DOMContentLoaded', function() {
+//     const controlsContainer = document.getElementById('controls-container');
+//     // Generate all UI controls
+//     const allSectionsHtml = controlSections.map(section => createDropdownSection(section)).join('');
+//     controlsContainer.innerHTML = allSectionsHtml;
+//     // Initialize dropdown functionality
+//     const dropdowns = document.querySelectorAll('.dropdown-header');
+//     dropdowns.forEach(dropdown => {
+//         dropdown.addEventListener('click', function() {
+//             const content = this.nextElementSibling;
+//             const icon = this.querySelector('.dropdown-icon');
+            
+//             // If this dropdown is already open, just close it
+//             if (content.classList.contains('active')) {
+//                 content.classList.remove('active');
+//                 icon.classList.remove('active');
+//                 return;
+//             }
+            
+//             // Close all dropdowns first
+//             document.querySelectorAll('.dropdown-content').forEach(item => {
+//                 item.classList.remove('active');
+//             });
+//             document.querySelectorAll('.dropdown-icon').forEach(item => {
+//                 item.classList.remove('active');
+//             });
+            
+//             // Then open only this dropdown
+//             content.classList.add('active');
+//             icon.classList.add('active');
+//         });
+//     });
     
-    // Generate all UI controls
-    const allSectionsHtml = controlSections.map(section => createDropdownSection(section)).join('');
-    controlsContainer.innerHTML = allSectionsHtml;
-    
-    // Initialize dropdown functionality
-    const dropdowns = document.querySelectorAll('.dropdown-header');
-    dropdowns.forEach(dropdown => {
-        dropdown.addEventListener('click', function() {
-            const content = this.nextElementSibling;
-            const icon = this.querySelector('.dropdown-icon');
-            
-            // If this dropdown is already open, just close it
-            if (content.classList.contains('active')) {
-                content.classList.remove('active');
-                icon.classList.remove('active');
-                return;
-            }
-            
-            // Close all dropdowns first
-            document.querySelectorAll('.dropdown-content').forEach(item => {
-                item.classList.remove('active');
-            });
-            document.querySelectorAll('.dropdown-icon').forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            // Then open only this dropdown
-            content.classList.add('active');
-            icon.classList.add('active');
-        });
-    });
-    
-    // Sync range inputs with text inputs
-    const rangeInputs = document.querySelectorAll('input[type="range"]');
-    rangeInputs.forEach(range => {
-        const id = range.id;
-        const textInput = document.getElementById(id + 'Text');
-        const valueSpan = document.getElementById(id + 'Value');
+//     // Sync range inputs with text inputs
+//     const rangeInputs = document.querySelectorAll('input[type="range"]');
+//     rangeInputs.forEach(range => {
+//         const id = range.id;
+//         const textInput = document.getElementById(id + 'Text');
+//         const valueSpan = document.getElementById(id + 'Value');
         
-        // Update text input when slider changes
-        range.addEventListener('input', function() {
-            textInput.value = this.value;
-            valueSpan.textContent = this.value;
-        });
+//         // Update text input when slider changes
+//         range.addEventListener('input', function() {
+//             textInput.value = this.value;
+//             valueSpan.textContent = this.value;
+//         });
         
-        // Update slider and render scene when text input changes (typing)
-        textInput.addEventListener('input', function() {
-            range.value = this.value;
-            valueSpan.textContent = this.value;
+//         // Update slider and render scene when text input changes (typing)
+//         textInput.addEventListener('input', function() {
+//             range.value = this.value;
+//             valueSpan.textContent = this.value;
             
-            // Trigger the input event on the range to ensure rendering happens
-            const inputEvent = new Event('input', { bubbles: true });
-            range.dispatchEvent(inputEvent);
-        });
+//             // Trigger the input event on the range to ensure rendering happens
+//             const inputEvent = new Event('input', { bubbles: true });
+//             range.dispatchEvent(inputEvent);
+//         });
         
-        // Additional listener for change event (up/down buttons or on blur)
-        textInput.addEventListener('change', function() {
-            range.value = this.value;
-            valueSpan.textContent = this.value;
+//         // Additional listener for change event (up/down buttons or on blur)
+//         textInput.addEventListener('change', function() {
+//             range.value = this.value;
+//             valueSpan.textContent = this.value;
             
-            // Trigger the input event on the range to ensure rendering happens
-            const inputEvent = new Event('input', { bubbles: true });
-            range.dispatchEvent(inputEvent);
-        });
-    });
-});
+//             // Trigger the input event on the range to ensure rendering happens
+//             const inputEvent = new Event('input', { bubbles: true });
+//             range.dispatchEvent(inputEvent);
+//         });
+//     });
+// });

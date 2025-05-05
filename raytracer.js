@@ -137,18 +137,40 @@ function Loop(){
 }
 
 
-// Initialize controls and render the first scene when the page loads
+// --- dat.GUI UI integration ---
 window.addEventListener('load', () => {
-    // Initialize controls with references to variables
-    initControls(Loop, light_pos, sphere_center, sphereRadiusRef, sphere_color, bg_color);
-    
-    // Set initial values for UI
-    document.getElementById('sphereRedValue').textContent = sphere_color.x;
-    document.getElementById('sphereGreenValue').textContent = sphere_color.y;
-    document.getElementById('sphereBlueValue').textContent = sphere_color.z;
-    document.getElementById('bgRedValue').textContent = bg_color.r;
-    document.getElementById('bgGreenValue').textContent = bg_color.g;
-    document.getElementById('bgBlueValue').textContent = bg_color.b;
-    
-    Loop(); // Initial render
+    // dat.GUI setup
+    const gui = new dat.GUI();
+
+    // Light position folder
+    const lightFolder = gui.addFolder('Light Position');
+    lightFolder.add(light_pos, 'x', -10, 10, 0.5).name('X').onChange(Loop);
+    lightFolder.add(light_pos, 'y', -10, 10, 0.5).name('Y').onChange(Loop);
+    lightFolder.add(light_pos, 'z', -10, 10, 0.5).name('Z').onChange(Loop);
+    lightFolder.open();
+
+    // Sphere properties folder
+    const sphereFolder = gui.addFolder('Sphere Properties');
+    sphereFolder.add(sphere_center, 'x', -10, 10, 0.5).name('X').onChange(Loop);
+    sphereFolder.add(sphere_center, 'y', -10, 10, 0.5).name('Y').onChange(Loop);
+    sphereFolder.add(sphere_center, 'z', -10, 10, 0.5).name('Z').onChange(Loop);
+    sphereFolder.add(sphereRadiusRef, 'value', 0.1, 5, 0.1).name('Radius').onChange(Loop);
+    sphereFolder.open();
+
+    // Sphere color folder
+    const sphereColorFolder = gui.addFolder('Sphere Color');
+    sphereColorFolder.add(sphere_color, 'x', 0, 255, 1).name('Red').onChange(Loop);
+    sphereColorFolder.add(sphere_color, 'y', 0, 255, 1).name('Green').onChange(Loop);
+    sphereColorFolder.add(sphere_color, 'z', 0, 255, 1).name('Blue').onChange(Loop);
+    sphereColorFolder.open();
+
+    // Background color folder
+    const bgColorFolder = gui.addFolder('Background Color');
+    bgColorFolder.add(bg_color, 'r', 0, 255, 1).name('Red').onChange(Loop);
+    bgColorFolder.add(bg_color, 'g', 0, 255, 1).name('Green').onChange(Loop);
+    bgColorFolder.add(bg_color, 'b', 0, 255, 1).name('Blue').onChange(Loop);
+    bgColorFolder.open();
+
+    // Initial render
+    Loop();
 });
