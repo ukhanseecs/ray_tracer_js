@@ -101,4 +101,34 @@ function initControls(loopFunction, lightPosRef, sphereCenterRef, sphereRadiusRe
         loopFunction(); // Auto-render on change
     });
     
+    // --- Mouse wheel for sphere radius and z position (canvas only, robust update) ---
+    const canvas = document.getElementById('canvas1');
+    if (canvas) {
+        canvas.addEventListener('wheel', function(e) {
+            if (!sphereRadius || !sphereZ) return;
+            if (e.shiftKey) {
+                // Adjust z position
+                let dz = (e.deltaY < 0 ? 1 : -1) * 0.1;
+                let newZ = parseFloat(sphereZ.value) + dz;
+                newZ = Math.max(parseFloat(sphereZ.min), Math.min(parseFloat(sphereZ.max), newZ));
+                newZ = +newZ.toFixed(2);
+                sphereZ.value = newZ;
+                document.getElementById('sphereZText').value = newZ;
+                document.getElementById('sphereZValue').textContent = newZ;
+                sphereCenterRef.z = newZ;
+            } else {
+                // Adjust radius
+                let dr = (e.deltaY < 0 ? 1 : -1) * 0.05;
+                let newR = parseFloat(sphereRadius.value) + dr;
+                newR = Math.max(parseFloat(sphereRadius.min), Math.min(parseFloat(sphereRadius.max), newR));
+                newR = +newR.toFixed(3);
+                sphereRadius.value = newR;
+                document.getElementById('sphereRadiusText').value = newR;
+                document.getElementById('sphereRadiusValue').textContent = newR;
+                sphereRadiusRef.value = newR;
+            }
+            loopFunction();
+            e.preventDefault();
+        }, { passive: false });
+    }
 }

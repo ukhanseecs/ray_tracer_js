@@ -30,8 +30,8 @@ class Ray{
     }
 }
 
-let sphere_center = new Vector3D(0, 0, -0.5); 
-let sphere_radius = 0.7; 
+let sphere_center = new Vector3D(-0.1, 0, -0.5); 
+let sphere_radius = 0.2; 
 let sphere_color = new Vector3D(255, 0, 0); 
 
 let bg_color = {r: 0, g: 0, b: 0}; 
@@ -173,4 +173,34 @@ window.addEventListener('load', () => {
 
     // Initial render
     Loop();
+
+    // Mouse wheel event for sphere radius and z position
+    window.addEventListener('wheel', function(e) {
+        // If Shift is held, adjust z position; otherwise, adjust radius
+        if (e.shiftKey) {
+            // Move sphere along z-axis (in/out)
+            let dz = (e.deltaY < 0 ? 1 : -1) * 0.1;
+            sphere_center.z += dz;
+            // Clamp z value to GUI range
+            sphere_center.z = Math.max(-10, Math.min(10, sphere_center.z));
+            // If dat.GUI is present, update display
+            if (gui.__folders && gui.__folders['Sphere Properties']) {
+                let zController = gui.__folders['Sphere Properties'].__controllers[2];
+                zController.setValue(sphere_center.z);
+            }
+        } else {
+            // Adjust sphere radius
+            let dr = (e.deltaY < 0 ? 1 : -1) * 0.05;
+            sphereRadiusRef.value += dr;
+            // Clamp radius to GUI range
+            sphereRadiusRef.value = Math.max(0.1, Math.min(5, sphereRadiusRef.value));
+            // If dat.GUI is present, update display
+            if (gui.__folders && gui.__folders['Sphere Properties']) {
+                let rController = gui.__folders['Sphere Properties'].__controllers[3];
+                rController.setValue(sphereRadiusRef.value);
+            }
+        }
+        Loop();
+        e.preventDefault();
+    }, { passive: false });
 });
